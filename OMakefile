@@ -1,0 +1,58 @@
+#######################################################################
+# Build Rule for Generating Thesis of Creative Informatics
+#
+#######################################################################
+
+# programs
+OS=$(shell uname -s)
+LATEX=platex
+LATEXFLAGS=-interaction=nonstopmode -kanji=utf8
+TETEX2_ENABLED=false
+MAKEINDEX=makeindex
+BIBTEXFLAGS=-kanji=utf8
+BIBTEX=pbibtex $(BIBTEXFLAGS)
+DVIPDFM=dvipdfmx
+DVIPDFMFLAGS=-p a4
+EBBFLAGS=-m
+EBB=extractbb $(EBBFLAGS)
+GLOB_OPTIONS=i
+
+# files
+TARGET=main
+FIGDIR=figs
+
+# dependencies
+TEX_FILES=$(glob *.tex */*.tex)
+BIB_FILES=$(glob *.bib)
+RAWIMG_FILES=$(glob $(FIGDIR)/*.jpg $(FIGDIR)/*.png $(FIGDIR)/*.pdf)
+IMG_FILES=$(glob $(FIGDIR)/*.eps) $(RAWIMG_FILES)
+XBB_FILES=$(addsuffix .bb, $(removesuffix $(RAWIMG_FILES)))
+
+.SUBDIRS: $(FIGDIR)
+    %.bb: %.png
+        $(EBB) $<
+    %.bb: %.jpg
+        $(EBB) $<
+    %.bb: %.pdf
+        $(EBB) $<
+.PHONY: clean
+
+TEXDEPS[]=$(TEX_FILES) $(BIB_FILES) $(IMG_FILES) $(XBB_FILES)
+LaTeXDocument($(TARGET), $(TARGET))
+.DEFAULT: $(TARGET).pdf $(TARGET).dvi
+
+
+clean:
+	rm $(glob *.toc *.log *.pdf *.dvi *.fls *.aux *.maf *.mtc *.bbl *.blg) $(XBB_FILES)
+
+# notify after build
+notify(msg)=
+	if $(equal $(OS), Linux)
+		notify-send -i gnome-about-logo -t 3000 '<big>Thesis Generator</big>' $(msg)
+	elseif $(equal $(OS), Darwin)
+		osascript -e 'display notification "'$(msg)'" with title "Thesis Generator"'
+
+.BUILD_SUCCESS:
+	notify("Compiling LaTeX successfly finished.")
+.BUILD_FAILURE:
+	notify("Compile Error Occured!")
