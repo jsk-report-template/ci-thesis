@@ -1,13 +1,30 @@
-.PHONY: all open clean forever
+###########################################################
+# Thesis Generator for Creative Informatics
+# Author: Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>
+# Date: 2015/11/12
+###########################################################
 
-all:
+
+.PHONY: all open clean forever preinstall
+OS=$(shell uname -s)
+ifeq ($(OS), Linux)
+	PREINSTALL=sudo apt-get install -y omake fam
+endif
+ifeq ($(OS), Darwin)
+	PREINSTALL=brew install opam && opam init && eval `opam config env` && opam install omake
+endif
+
+all: preinstall
 	omake
 
-forever:
+forever: preinstall
 	omake -P
 
-open:
+open: preinstall
 	omake preview
 
-clean:
+clean: preinstall
 	omake clean
+
+preinstall:
+	@if ! which omake > /dev/null; then $(PREINSTALL); fi
