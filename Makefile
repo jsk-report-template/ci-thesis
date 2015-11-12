@@ -5,7 +5,7 @@
 ###########################################################
 
 
-.PHONY: all open clean forever preinstall
+.PHONY: all open clean wipe forever preinstall
 OS=$(shell uname -s)
 ifeq ($(OS), Linux)
 	PREINSTALL=sudo apt-get install -y omake fam
@@ -25,6 +25,9 @@ open: preinstall
 
 clean: preinstall
 	omake clean
+
+wipe: clean
+	rm -f .omakedb* *.omc
 
 preinstall:
 	@if ! which omake > /dev/null; then $(PREINSTALL); fi
