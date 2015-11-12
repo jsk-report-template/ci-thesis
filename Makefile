@@ -24,7 +24,7 @@ open: preinstall
 	omake preview
 
 clean: preinstall
-	-omake clean
+	omake clean
 
 wipe: clean
 	rm -f .omakedb* *.omc

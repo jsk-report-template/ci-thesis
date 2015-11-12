@@ -14,8 +14,9 @@ BIBTEXFLAGS=-kanji=utf8
 BIBTEX=pbibtex $(BIBTEXFLAGS)
 DVIPDFM=dvipdfmx
 DVIPDFMFLAGS=-p a4
-EBBFLAGS=-m
-EBB=extractbb $(EBBFLAGS)
+BBFLAGS=-m
+XBBFLAGS=-x
+EXTRACTBB=extractbb
 GLOB_OPTIONS=i
 
 # files
@@ -27,32 +28,41 @@ TEX_FILES=$(glob *.tex */*.tex)
 BIB_FILES=$(glob *.bib)
 RAWIMG_FILES=$(glob $(FIGDIR)/*.jpg $(FIGDIR)/*.png $(FIGDIR)/*.pdf)
 IMG_FILES=$(glob $(FIGDIR)/*.eps) $(RAWIMG_FILES)
-XBB_FILES=$(addsuffix .bb, $(removesuffix $(RAWIMG_FILES)))
+BB_FILES=$(addsuffix .bb, $(removesuffix $(RAWIMG_FILES)))
+XBB_FILES=$(addsuffix .xbb, $(removesuffix $(RAWIMG_FILES)))
+
 
 .SUBDIRS: $(FIGDIR)
 	%.bb: %.png
-		$(EBB) $<
+		$(EXTRACTBB) $(BBFLAGS) $<
 	%.bb: %.jpg
-		$(EBB) $<
+		$(EXTRACTBB) $(BBFLAGS) $<
 	%.bb: %.pdf
-		$(EBB) $<
+		$(EXTRACTBB) $(BBFLAGS) $<
+	%.xbb: %.png
+		$(EXTRACTBB) $(XBBFLAGS) $<
+	%.xbb: %.jpg
+		$(EXTRACTBB) $(XBBFLAGS) $<
+	%.xbb: %.pdf
+		$(EXTRACTBB) $(XBBFLAGS) $<
 
 .PHONY: clean preview
 
-TEXDEPS[]=$(TEX_FILES) $(BIB_FILES) $(IMG_FILES) $(XBB_FILES)
+TEXDEPS[]=$(TEX_FILES) $(BIB_FILES) $(IMG_FILES) $(XBB_FILES) $(BB_FILES)
 LaTeXDocument($(TARGET), $(TARGET))
 .DEFAULT: $(TARGET).pdf $(TARGET).dvi
 
-if $(equal $(OS), Linux)
-	PREVIEW=evince
-elseif $(equal $(OS), Darwin)
-	PREVIEW=open
+openpdf(f)=
+	if $(equal $(OS), Linux)
+		evince $(f)
+	elseif $(equal $(OS), Darwin)
+		bash -c "open -a \"Preview.app\" $(f)"
+
 
 preview: $(TARGET).pdf
-	$(PREVIEW) $(TARGET).pdf
-
+	openpdf($(TARGET).pdf)
 clean:
-	rm $(glob *.toc *.log *.pdf *.dvi *.fls *.aux *.maf *.mtc *.bbl *.blg) $(XBB_FILES)
+	-rm -f $(glob *.toc *.log *.pdf *.dvi *.fls *.aux *.maf *.mtc *.bbl *.blg) $(XBB_FILES) $(BB_FILES)
 
 # notify after build
 notify(msg)=
