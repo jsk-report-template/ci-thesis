@@ -29,18 +29,26 @@ IMG_FILES=$(glob $(FIGDIR)/*.eps) $(RAWIMG_FILES)
 XBB_FILES=$(addsuffix .bb, $(removesuffix $(RAWIMG_FILES)))
 
 .SUBDIRS: $(FIGDIR)
-    %.bb: %.png
-        $(EBB) $<
-    %.bb: %.jpg
-        $(EBB) $<
-    %.bb: %.pdf
-        $(EBB) $<
-.PHONY: clean
+	%.bb: %.png
+		$(EBB) $<
+	%.bb: %.jpg
+		$(EBB) $<
+	%.bb: %.pdf
+		$(EBB) $<
+
+.PHONY: clean preview
 
 TEXDEPS[]=$(TEX_FILES) $(BIB_FILES) $(IMG_FILES) $(XBB_FILES)
 LaTeXDocument($(TARGET), $(TARGET))
 .DEFAULT: $(TARGET).pdf $(TARGET).dvi
 
+if $(equal $(OS), Linux)
+	PREVIEW=evince
+elseif $(equal $(OS), Darwin)
+	PREVIEW=open
+
+preview: $(TARGET).pdf
+	$(PREVIEW) $(TARGET).pdf
 
 clean:
 	rm $(glob *.toc *.log *.pdf *.dvi *.fls *.aux *.maf *.mtc *.bbl *.blg) $(XBB_FILES)
