@@ -1,0 +1,12 @@
+language:
+  - cpp
+compiler:
+  - gcc
+dist: trusty
+sudo: required
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y -qq texlive texlive-lang-cjk xdvik-ja dvipsk-ja gv texlive-fonts-recommended texlive-fonts-extra wget omake build-essential
+script:
+  - make
+  - test -e main.pdf
