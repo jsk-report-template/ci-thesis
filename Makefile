@@ -20,6 +20,12 @@ all: preinstall
 forever: preinstall
 	omake -P
 
+publish: preinstall
+	-find . -name '*.tex' -print0 | xargs -0 -I{} sed -i.orig -e 's/、/，/g' {}
+	-find . -name '*.tex' -print0 | xargs -0 -I{} sed -i.orig2 -e 's/。/．/g' {}
+	omake publish
+pub: publish
+
 quiet: preinstall
 	omake 2>&1 | egrep '^\!.*$$|error|Error|Warning' -C3
 
