@@ -1,5 +1,6 @@
 language:
   - cpp
+  - python
 compiler:
   - gcc
 dist: trusty
