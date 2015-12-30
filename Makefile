@@ -20,6 +20,12 @@ all: preinstall
 forever: preinstall
 	omake -P
 
+quiet: preinstall
+	omake 2>&1 | egrep '^\!.*$$|error|Error|Warning' -C3
+
+todo:
+	egrep -r -C3 -n --color=auto "nowprinting|TODO" src
+
 open: preinstall
 	omake preview
 
