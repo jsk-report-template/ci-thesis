@@ -149,7 +149,6 @@ Session.vim
 
 ## Auxiliary and intermediate files from other packages:
 
-
 # algorithms
 *.alg
 *.loa
@@ -250,5 +249,3 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
-
-
