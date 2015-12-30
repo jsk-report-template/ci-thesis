@@ -66,10 +66,13 @@ clean:
 
 # notify after build
 notify(msg)=
-	if $(equal $(OS), Linux)
-		notify-send -i gnome-about-logo -t 3000 '<big>Thesis Generator</big>' $(msg)
-	elseif $(equal $(OS), Darwin)
-		osascript -e 'display notification "'$(msg)'" with title "Thesis Generator"'
+	try
+		if $(equal $(OS), Linux)
+			notify-send -i gnome-about-logo -t 3000 '<big>Thesis Generator</big>' $(msg)
+		elseif $(equal $(OS), Darwin)
+			osascript -e 'display notification "'$(msg)'" with title "Thesis Generator"'
+	default
+		echo "Failed to notify"
 
 .BUILD_SUCCESS:
 	notify("Compiling LaTeX successfly finished.")
