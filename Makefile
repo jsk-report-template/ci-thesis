@@ -5,13 +5,15 @@
 ###########################################################
 
 
-.PHONY: all open clean wipe forever preinstall
+.PHONY: all open clean wipe forever preinstall pub publish
 OS=$(shell uname -s)
 ifeq ($(OS), Linux)
-	PREINSTALL=sudo apt-get install -y omake fam
+	OMAKE_INSTALL=sudo apt-get install -y -qq omake fam
+	TEX_INSTALL=sudo apt-get install -y -qq texlive texlive-lang-cjk texlive-science texlive-fonts-recommended texlive-fonts-extra xdvik-ja dvipsk-ja gv
 endif
 ifeq ($(OS), Darwin)
-	PREINSTALL=brew install opam && opam init && eval `opam config env` && opam install omake
+	OMAKE_INSTALL=brew install -y opam && opam init -y -j4 -q && eval `opam config env` && opam install omake -y -j4 -q
+	TEX_INSTALL=brew install -y caskroom/cask/brew-cask && brew cask install -y mactex && sudo tlmgr update --self --all
 endif
 
 all: preinstall
@@ -20,9 +22,10 @@ all: preinstall
 forever: preinstall
 	omake -P
 
+open: preinstall
+	omake preview
+
 publish: preinstall
-	-find . -name '*.tex' -print0 | xargs -0 -I{} sed -i.orig -e 's/、/，/g' {}
-	-find . -name '*.tex' -print0 | xargs -0 -I{} sed -i.orig2 -e 's/。/．/g' {}
 	omake publish
 pub: publish
 
@@ -32,14 +35,12 @@ quiet: preinstall
 todo:
 	egrep -r -C3 -n --color=auto "nowprinting|TODO" src
 
-open: preinstall
-	omake preview
-
 clean: preinstall
 	omake clean
 
 wipe: clean
-	rm -f .omakedb* *.omc
+	git clean -X -f -i -e '.tex'
 
 preinstall:
-	@if ! which omake > /dev/null; then $(PREINSTALL); fi
+	@if ! which omake > /dev/null; then $(OMAKE_INSTALL); fi
+	@if ! which platex > /dev/null; then $(TEX_INSTALL); fi

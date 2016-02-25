@@ -1,13 +1,29 @@
 language:
-  - cpp
-  - python
+- generic
 compiler:
-  - gcc
-dist: trusty
-sudo: required
+- gcc
+matrix:
+  include:
+  - os: linux
+    dist: trusty
+    sudo: required
+  - os: osx
+  allow_failures:
+  - os: osx
+  fast_finish: true
 before_script:
-  - sudo apt-get update
-  - sudo apt-get install -y -qq texlive texlive-lang-cjk xdvik-ja dvipsk-ja gv texlive-fonts-recommended texlive-fonts-extra wget omake build-essential
+- if [ $TRAVIS_OS_NAME == "osx" ]; then brew update -y; else sudo apt-get update -y
+  -qq; fi
+- if [ $TRAVIS_OS_NAME != "osx" ]; then sudo apt-get install -y -qq build-essential;
+  fi
 script:
-  - make
-  - test -e main.pdf
+- make pub VERBOSE=1
+deploy:
+  provider: releases
+  api_key:
+    secure: JzKpAOagkshfWejKDqPquhhOZy3kYhZLfZjk2t4578n6/ok+UvRCo4ikcePShfOmv2sjewBv8GFWQYpWw3Pclqw5KP6N7GaW+gnethilc/sG4g+c4Ae1pQ9UpC9qNFBRm/+8vVhJ+aU0LXSB8DgzGdgans1iUURfBPUSIl9CUmDkBMBApq5IR2v5/+06poFDLtBplCs/zIBUcCG/Feu7VXNoyWan2uT20TeiacAjl5JtMTApVBJzaB54MmwGnTNzFbq1ISlbYBWHS/OwB7oI6skCEhUJSB2dvemorRqt8feOVXES+nm61FxAZhyQqPyFmbzzb/SNyGcH6LN3rFfZf35BnFcVp73/uYyNMEB5ZubPbTpCOaidhl5b8XrbZfNlWXjzsprhGuATeYAKERVX0FpRMQhkAYYt3EKloWVql11RGUboosFuJROLlYYwc8P1AWqwbHgFnAGe0+lWIwKBKF5Q5yYpahcF9Pk/LSZGU6dBEve8MVtTKEN+Tq0h3NZgPgVWc3LOqzT4MHzYaejLBrkuxjMmvdy4S3Lz6t4noZ8m+yZ/cM3lSjMIUzSFWD7d0wDPTuRzLMuzxVzLNWV+tNx/153cfkzQbwBcKaoLrXsBPvRRrNOEYjRJ3Owqc3nrC0/HahtOa+i/5V4L6a9RxP2upQKu+gUOyq8aX2cDSQA=
+  file: main.pdf
+  skip_cleanup: true
+  on:
+    repo: furushchev/ci-thesis-template
+    tags: true
