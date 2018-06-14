@@ -8,7 +8,7 @@ matrix:
       dist: trusty
     - os: osx
 
-before_script:
+before_install:
   - >
     if [ $TRAVIS_OS_NAME == "osx" ]; then
       brew update -y
@@ -17,6 +17,15 @@ before_script:
       sudo apt-get update -y -qq
       sudo apt-get install -y -qq build-essential
       sudo apt-get install -y -qq poppler-utils  # for pdfinfo
+    fi
+
+install:
+  - >
+    if [ $TRAVIS_OS_NAME == "osx" ]; then
+      brew cask install -v mactex
+      exec bash  # to update PATH
+    else
+      sudo apt-get install -y -qq texlive texlive-lang-cjk texlive-science texlive-fonts-recommended texlive-fonts-extra xdvik-ja dvipsk-ja gv latexmk
     fi
 
 script:
