@@ -1,51 +1,29 @@
 # ci-thesis-template
+
 LaTeX Template of Thesis at Creative Informatics
 
-```
-.
-├── LICENSE
-├── Makefile
-├── OMakefile
-├── OMakeroot
-├── README.md
-├── cimt.cls
-├── figs
-│   ├── dj.jpg
-│   ├── fig.eps
-│   └── nowprinting.eps
-├── main.bib
-├── main.tex
-└── src
-    ├── ack.tex
-    ├── appendix.tex
-    ├── body.tex
-    ├── concl.tex
-    ├── eabst.tex
-    ├── intro.tex
-    ├── jabst.tex
-    └── publications.tex
+
+## Installation
+
+### Ubuntu
+
+```bash
+sudo apt-get install build-essential  # for make command
+sudo apt-get install texlive texlive-lang-cjk texlive-science texlive-fonts-recommended texlive-fonts-extra xdvik-ja dvipsk-ja gv latexmk
 ```
 
-# How to use
+### macOS
 
-1. Edit Tex files
-2. Compile to draft pdf
-
-  ```
-make
+```bash
+brew update -y
+brew cask install -v mactex
+exec bash  # to update PATH
 ```
-3. Publish as release pdf
 
-  ```
-make publish
+
+## Usage
+
 ```
-4. Show error only
-
-  ```
-make quiet
-```
-5. Show todo
-
-  ```
-make todo
+emacs -nw main.tex
+make  # it creates main.pdf
 ```
