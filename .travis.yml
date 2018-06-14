@@ -12,7 +12,7 @@ before_script:
   - >
     if [ $TRAVIS_OS_NAME == "osx" ]; then
       brew update -y
-      brew install homebrew/x11/xpdf  # for pdfinfo
+      brew install poppler  # for pdfinfo
     else
       sudo apt-get update -y -qq
       sudo apt-get install -y -qq build-essential
