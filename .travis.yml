@@ -1,5 +1,9 @@
 sudo: required
 
+cache:
+  directories:
+    - $HOME/Library/Caches/Homebrew
+
 language: generic
 
 matrix:
