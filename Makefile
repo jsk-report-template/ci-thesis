@@ -36,6 +36,6 @@ ifeq ($(OS), Linux)
 	sudo apt install -y -qq texlive texlive-lang-cjk texlive-science texlive-fonts-recommended texlive-fonts-extra xdvik-ja dvipsk-ja gv latexmk
 endif
 ifeq ($(OS), Darwin)
-	brew cask install -v mactex && brew install ghostscript && sudo tlmgr update --self --all
+	brew cask install -v mactex
 endif
 endif
