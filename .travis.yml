@@ -23,7 +23,7 @@ install:
   - >
     if [ $TRAVIS_OS_NAME == "osx" ]; then
       brew cask install -v mactex
-      exec bash  # to update PATH
+      export PATH=/Library/TeX/texbin:$PATH
     else
       sudo apt-get install -y -qq texlive texlive-lang-cjk texlive-science texlive-fonts-recommended texlive-fonts-extra xdvik-ja dvipsk-ja gv latexmk
     fi
