@@ -172,7 +172,7 @@
   \gdef\@thesisgrade{Doctor}
 \else
   \gdef\@jthesisname{修士論文}
-  \gdef\@ethesisname{Master Thesis}
+  \gdef\@ethesisname{Master's Thesis}
   \gdef\@thesisgrade{Master}
 \fi
 \def\@ci@nl(#1,#2){\\[#1truemm minus#2truemm]}
