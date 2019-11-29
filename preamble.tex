@@ -1,0 +1,7 @@
+\makeatletter
+\newcommand*{\figref}[1]{{\if@english Figure~\else 図\fi\ref{#1}}}
+\newcommand*{\tabref}[1]{{\if@english Table~\else 表\fi\ref{#1}}}
+\newcommand*{\eqref}[1]{{\if@english Equation~\else 式\fi}(\ref{#1})}
+\newcommand*{\chapref}[1]{{\if@english Chapter~\ref{#1}\else 第{\ref{#1}}章\fi}}
+\newcommand*{\secref}[1]{{\if@english Section~\ref{#1}\else \ref{#1}節\fi}}
+\makeatother
