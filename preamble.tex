@@ -5,6 +5,9 @@
 \newcommand*{\chapref}[1]{{\if@english Chapter~\ref{#1}\else 第{\ref{#1}}章\fi}}
 \newcommand*{\secref}[1]{{\if@english Section~\ref{#1}\else \ref{#1}節\fi}}
 
+\newcommand{\chapprint}[1]{\chapref{#1}\if@english:~\textit{\nameref{#1}}\else「\textit{\nameref{#1}}」\fi}
+\newcommand{\secprint}[1]{\secref{#1}\if@english:~\textit{\nameref{#1}}\else「\textit{\nameref{#1}}」\fi}
+
 \def\PDFTITLE{\if@english \@ethesisname \else \@jthesisname\fi}
 \def\PDFSUBJECT{\if@english \@etitle \else \@jtitle\fi}
 \def\PDFAUTHOR{\if@english \@eauthor \else \@jauthor\fi}
