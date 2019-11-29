@@ -22,6 +22,7 @@ exec bash  # to update PATH
 
 
 ## Usage
+Change the Makefile target to `mainE` or rename the `mainE` as `main` to use English version.
 
 ```
 emacs -nw main.tex

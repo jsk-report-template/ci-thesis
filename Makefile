@@ -5,6 +5,7 @@
 ###########################################################
 
 TARGET := main
+# TARGET := mainE
 
 OS := $(shell uname -s)
 LATEXMK_OPTION := -time -recorder -rules
