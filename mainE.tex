@@ -1,0 +1,87 @@
+%------------------------------------------------------------------------------
+\documentclass[master,final,english]{cimt} 
+% Use "english" option for English thesis.
+% \documentclass[master,oneside,english]{cimt} 
+
+% List packages here.
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{url}
+\usepackage{layout}
+
+% Title
+\etitle{On blahblah}
+% A long title is automatically split into lines.  Explicit newlines
+% can also be specified:
+% \etitle{This is a long title\\with a explicit line break}
+
+% Title in Japanese
+\jtitle{これこれについて}
+
+% Author
+\eauthor{Sota Akiba}
+
+% Author in Japanese
+\jauthor{秋葉 創太}
+
+% Supervisor
+\supervisor{Professor Joichi Hongo}
+
+% Submission.  The following line specifies "January 2010."
+\handin{2010}{1}
+
+\begin{document}
+
+% Output the cover and the inside cover.
+\maketitle 
+
+% Frontmatter starts here.
+\frontmatter
+
+% Abstract
+\begin{eabstract}
+\input src/eabst.tex
+\end{eabstract}
+
+% Abstract in Japanese
+\begin{jabstract}
+\input src/jabst.tex
+\end{jabstract}
+
+% Acknowledgements (optional) (can be placed in backmatter section)
+\begin{acknowledgements}
+\input src/ack.tex
+\end{acknowledgements}
+
+% Table of Contents
+\tableofcontents
+
+% Mainmatter starts here.
+\mainmatter
+
+\input src/intro.tex
+\input src/body.tex
+\input src/concl.tex
+
+
+% Backmatter starts here.
+\backmatter
+
+% Publications
+\pubUseLongName % title becomes ``Publications and Research Activities''
+\begin{publications}
+\input src/publications.tex
+\end{publications}
+
+% Bibliography.  An example using BibTeX.  (Style can be changed.)
+\bibliographystyle{junsrt}
+\bibliography{main}
+
+% Another example of Bibliography.  
+% \input src/biblio.tex
+
+% Appendix (optional)
+\appendix
+
+\input src/appendix.tex
+
+\end{document}

@@ -5,12 +5,13 @@
 ###########################################################
 
 TARGET := main
+# TARGET := mainE
 
 OS := $(shell uname -s)
 LATEXMK_OPTION := -time -recorder -rules
 LATEXMK_EXEC := latexmk $(LATEXMK_OPTION)
 
-.PHONY: all preview clean wipe
+.PHONY: all preview forever clean wipe
 
 all:
 	$(LATEXMK_EXEC) -pvc- $(TARGET)
