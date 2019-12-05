@@ -164,7 +164,7 @@
 %% \newcommand*{\jsupervisortitle}[1]{\gdef\@jsupervisortitle{#1}}% #1: 指導教員肩書(和文)
 %% \newcommand*{\esupervisortitle}[1]{\gdef\@esupervisortitle{#1}}% #1: 指導教員肩書(英文)
 \newcommand*{\handin}[2]{\year #1 \month #2}% #1: 年, #2: 月, #3: 日
-\newcommand*{\keywords}[1]{\gdef\@keywords{#1}}% #1: キーワード
+\newcommand*{\keywords}[1]{\gdef\@keywords{{#1}}}% #1: キーワード
 \gdef\@keywordsprefix{\if@english Keywords\else キーワード\fi}
 \if@graduatedoctor
   \gdef\@jthesisname{博士論文}

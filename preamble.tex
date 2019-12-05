@@ -1,0 +1,28 @@
+\makeatletter
+\newcommand*{\figref}[1]{{\if@english Figure~\else 図\fi\ref{#1}}}
+\newcommand*{\tabref}[1]{{\if@english Table~\else 表\fi\ref{#1}}}
+\newcommand*{\eqref}[1]{{\if@english Equation~\else 式\fi}(\ref{#1})}
+\newcommand*{\chapref}[1]{{\if@english Chapter~\ref{#1}\else 第{\ref{#1}}章\fi}}
+\newcommand*{\secref}[1]{{\if@english Section~\ref{#1}\else \ref{#1}節\fi}}
+
+\newcommand{\chapprint}[1]{\chapref{#1}\if@english:~\textit{\nameref{#1}}\else「\textit{\nameref{#1}}」\fi}
+\newcommand{\secprint}[1]{\secref{#1}\if@english:~\textit{\nameref{#1}}\else「\textit{\nameref{#1}}」\fi}
+
+\def\PDFTITLE{\if@english \@ethesisname \else \@jthesisname\fi}
+\def\PDFSUBJECT{\if@english \@etitle \else \@jtitle\fi}
+\def\PDFAUTHOR{\if@english \@eauthor \else \@jauthor\fi}
+\def\PDFKEYWORDS{\ifdefined\@keywords\@keywords\fi}
+
+\makeatother
+
+\usepackage[dvipdfmx]{color}
+\usepackage[dvipdfmx,bookmarks=true,bookmarksnumbered=true,bookmarkstype=toc,
+     colorlinks=true,
+     linkcolor=black,
+     citecolor=black,
+     urlcolor=black,
+     pdftitle=\PDFTITLE,
+     pdfsubject=\PDFSUBJECT,
+     pdfauthor=\PDFAUTHOR,
+     pdfkeywords=\PDFKEYWORDS]{hyperref}
+\usepackage{pxjahyper} % for japanese encoding on pdf bookmarks
