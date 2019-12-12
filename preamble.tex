@@ -26,3 +26,23 @@
      pdfauthor=\PDFAUTHOR,
      pdfkeywords=\PDFKEYWORDS]{hyperref}
 \usepackage{pxjahyper} % for japanese encoding on pdf bookmarks
+\usepackage{listings}
+
+\lstset{
+  breaklines = true,
+  basicstyle=\ttfamily,
+  commentstyle={\itshape \color[cmyk]{1,0.4,1,0}},
+  classoffset=1,
+  %% keywordstyle={\bfseries \color[cmyk]{0,1,0,0}},
+  %% stringstyle={\ttfamily \color[rgb]{0,0,1}},
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  escapeinside={<@}{@>},
+  %% frame=tRBl,
+  framesep=5pt,
+  %% numbers=left,
+  stepnumber=1,
+  numberstyle=\tiny,
+  tabsize=2,
+}
